@@ -43,6 +43,9 @@ AMantleCharacter::AMantleCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	//Create a mantle component
+	MantleComponent = CreateDefaultSubobject<UMantleComponent>(TEXT("MantleComponent"));
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -54,8 +57,8 @@ void AMantleCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 {
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AMantleCharacter::JumpPressedAction);
+	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AMantleCharacter::JumpReleasedAction);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMantleCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMantleCharacter::MoveRight);
@@ -137,4 +140,14 @@ void AMantleCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void AMantleCharacter::JumpPressedAction()
+{
+	Jump();
+}
+
+void AMantleCharacter::JumpReleasedAction()
+{
+	StopJumping();
 }

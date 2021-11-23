@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Mantle/Components/MantleComponent.h"
 #include "MantleCharacter.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FJumpActionDelegate);
 
 UCLASS(config=Game)
 class AMantleCharacter : public ACharacter
@@ -18,6 +21,12 @@ class AMantleCharacter : public ACharacter
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
+
+	//Mantle Component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UMantleComponent* MantleComponent;
+
+
 public:
 	AMantleCharacter();
 
@@ -29,6 +38,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	FJumpActionDelegate JumpPressedDelegate;
+
 protected:
 
 	/** Resets HMD orientation in VR. */
@@ -39,6 +50,11 @@ protected:
 
 	/** Called for side to side input */
 	void MoveRight(float Value);
+
+
+	void JumpPressedAction();
+
+	void JumpReleasedAction();
 
 	/** 
 	 * Called via input to turn at a given rate. 
