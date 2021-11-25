@@ -16,6 +16,9 @@ public:
 	// Sets default values for this component's properties
 	UMantleComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Mantle System")
+	void OnJumpInput();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -23,6 +26,10 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+private:
+	UPROPERTY()
+	class AMantleCharacter* OwnerCharacter = nullptr;
 
 		
 };

@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Mantle/Components/MantleComponent.h"
+#include "Mantle/Library/CharacterEnumLibrary.h"
 #include "MantleCharacter.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FJumpActionDelegate);
@@ -78,6 +78,9 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
+
+	UPROPERTY(BlueprintReadOnly, Category = "State Values")
+	EMovementAction MovementAction = EMovementAction::None;
 
 public:
 	/** Returns CameraBoom subobject **/

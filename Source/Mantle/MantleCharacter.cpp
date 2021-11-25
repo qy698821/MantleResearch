@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Mantle/Components/MantleComponent.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMantleCharacter
@@ -144,6 +145,11 @@ void AMantleCharacter::MoveRight(float Value)
 
 void AMantleCharacter::JumpPressedAction()
 {
+	if (JumpPressedDelegate.IsBound()) 
+	{
+		JumpPressedDelegate.Broadcast();
+	}
+
 	Jump();
 }
 
