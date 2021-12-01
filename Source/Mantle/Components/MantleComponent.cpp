@@ -14,6 +14,11 @@ UMantleComponent::UMantleComponent()
 	// ...
 }
 
+bool UMantleComponent::MantleCheck(const FMantleTraceSettings& TraceSettings, EDrawDebugTrace::Type DebugType)
+{
+	return false;
+}
+
 void UMantleComponent::OnJumpInput()
 {
 	if (GEngine) 

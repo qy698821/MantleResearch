@@ -40,6 +40,16 @@ public:
 
 	FJumpActionDelegate JumpPressedDelegate;
 
+	//Character state
+	UFUNCTION(BlueprintGetter, Category = "Character States")
+	EMovementAction GetMovementAction() const { return MovementAction; }
+
+	UFUNCTION(BlueprintGetter, Category = "Character States")
+	EMovementState GetCurrentState() const { return CurrentState; }
+
+	UFUNCTION(BlueprintGetter, Category = "Character States")
+	EMovementState GetPrevState() const { return PrevState; }
+
 protected:
 
 	/** Resets HMD orientation in VR. */
@@ -79,6 +89,10 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 
+	UPROPERTY(BlueprintReadOnly, Category = "State Values")
+	EMovementState CurrentState = EMovementState::None;
+	UPROPERTY(BlueprintReadOnly, Category = "State Values")
+	EMovementState PrevState = EMovementState::None;
 	UPROPERTY(BlueprintReadOnly, Category = "State Values")
 	EMovementAction MovementAction = EMovementAction::None;
 

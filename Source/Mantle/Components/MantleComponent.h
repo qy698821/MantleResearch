@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Mantle/Library/CharacterStructLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "MantleComponent.generated.h"
 
 
@@ -15,6 +17,9 @@ class MANTLE_API UMantleComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UMantleComponent();
+	UFUNCTION(BlueprintCallable, Category = "Mantle System")
+	bool MantleCheck(const FMantleTraceSettings& TraceSettings,
+		EDrawDebugTrace::Type DebugType);
 
 	UFUNCTION(BlueprintCallable, Category = "Mantle System")
 	void OnJumpInput();
